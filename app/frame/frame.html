@@ -1,0 +1,68 @@
+<nav class="navbar navbar-primary navbar-fixed-top header-nav">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">亮点眼镜运营平台</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-left">
+                <li><a ui-sref="frame.consumer"
+                       ng-class="{active:$state.includes('frame.consumer') || $state.includes('frame.consumerList')}">客户</a>
+                </li>
+                <li><a ui-sref="frame.goods"
+                       ng-class="{active:$state.includes('frame.goods') || $state.includes('frame.goodsList')}">商品</a>
+                </li>
+                <li><a ui-sref="frame.shopCar"
+                       ng-class="{active:$state.includes('frame.shopCar') || $state.includes('frame.shopCarList')}">购物车</a>
+                </li>
+                <li><a ui-sref="frame.order"
+                       ng-class="{active:$state.includes('frame.order') || $state.includes('frame.orderList')}">订单</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li uib-dropdown>
+                    <a id="user-template-url" style="background-color: #1e89e0;" uib-dropdown-toggle>点亮</a>
+                    <ul class="dropdown-menu" uib-dropdown-menu template-url="user-dropdown.html"
+                        aria-labelledby="user-template-url">
+                    </ul>
+                </li>
+                <li uib-dropdown>
+                    <a id="setting-template-url" class="glyphicon glyphicon-cog"
+                       style="font-size:20px; background-color: #1e89e0;padding-bottom:14px;" uib-dropdown-toggle></a>
+                    <ul class="dropdown-menu" uib-dropdown-menu template-url="setting-dropdown.html"
+                        aria-labelledby="setting-template-url">
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="active"><a style="cursor: default;">功能列表</a></li>
+                <li ng-repeat="item in functionList"><a ui-sref="{{item.value}}">{{item.key}}</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ui-view>
+           <div class="frame_msg"><h1>欢迎使用亮点眼镜运营平台!</h1></div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/ng-template" id="user-dropdown.html">
+    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="user-template-url">
+        <li class="user-menu-item"><a>账号信息</a></li>
+        <li role="separator" class="divider"></li>
+        <li class="user-menu-item"><a>退出</a></li>
+    </ul>
+</script>
+
+<script type="text/ng-template" id="setting-dropdown.html">
+    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="setting-template-url">
+        <li class="user-menu-item"><a href="#">管理员</a></li>
+    </ul>
+</script>

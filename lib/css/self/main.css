@@ -35,9 +35,15 @@ body {
     color: #fff;
 }
 
+.navbar-primary .active,
 .navbar-primary a:hover,
 .navbar-primary a:focus {
     background-color: #006bc7 !important;
+}
+
+.user-menu-item a:hover,
+.user-menu-item a:focus{
+    background-color: #f5f5f5 !important;
 }
 
 /*
@@ -108,6 +114,41 @@ body {
 }
 .main .page-header {
     margin-top: 0;
+}
+
+.bg-color{
+    background-color: rgb(217,208,197);
+}
+
+/*login*/
+.bg-img{
+    border-radius: 2%;
+    overflow: hidden;
+}
+
+
+.loading{
+    position: fixed;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0.1;
+    background-color: #000000;
+}
+
+.alert-top{
+    width: 500px;
+    position: absolute;
+    top: 0px;
+    left: 30%;
+    text-align: center;
+}
+
+.frame_msg{
+    margin-top: 20%;
+    margin-left: 30%;
+    color: #1e89e0;
 }
 
 
