@@ -8,7 +8,7 @@ define(['app'], function (app) {
      */
     app.config(['$httpProvider', function ($httpProvider) {
 
-
+        $httpProvider.defaults.withCredentials = true;
 
     }]);
 
