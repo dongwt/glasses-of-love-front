@@ -10,7 +10,7 @@ define(['app'],
             function getFunctionList(stateName) {
                 var functionList = [];
                 angular.forEach($scope.allFunctionList,function (item) {
-                    if(item.currentState == stateName){
+                    if(item.currentState.substring(0,9) == stateName.substring(0,9)){
                         functionList = item.childStateList;
                     }
                 })

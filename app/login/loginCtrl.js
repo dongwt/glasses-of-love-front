@@ -30,7 +30,7 @@ define(['app'],
                     },
                     function (data) {
                         $scope.loading = false;
-                        addAlert(response.data.message);
+                        addAlert("操作失败!");
                     }
                 )
             }

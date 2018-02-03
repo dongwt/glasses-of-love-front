@@ -8,11 +8,11 @@
                 <li><a ui-sref="frame.consumer"
                        ng-class="{active:$state.includes('frame.consumer') || $state.includes('frame.consumerList')}">客户</a>
                 </li>
+                <li><a ui-sref="frame.shopCar"
+                       ng-class="{active:$state.includes('frame.shopCar') || $state.includes('frame.shopCarList')}">库存</a>
+                </li>
                 <li><a ui-sref="frame.goods"
                        ng-class="{active:$state.includes('frame.goods') || $state.includes('frame.goodsList')}">商品</a>
-                </li>
-                <li><a ui-sref="frame.shopCar"
-                       ng-class="{active:$state.includes('frame.shopCar') || $state.includes('frame.shopCarList')}">购物车</a>
                 </li>
                 <li><a ui-sref="frame.order"
                        ng-class="{active:$state.includes('frame.order') || $state.includes('frame.orderList')}">订单</a>
@@ -42,8 +42,10 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li class="active"><a style="cursor: default;">功能列表</a></li>
-                <li ng-repeat="item in functionList"><a ui-sref="{{item.value}}">{{item.key}}</a></li>
+                <li class="active" style="border-bottom: 1px solid #fff"><a style="cursor: default;">功能列表</a></li>
+                <li ng-repeat="item in functionList" ng-class="{active:$state.includes(item.value)}">
+                    <a ui-sref="{{item.value}}">{{item.key}}</a>
+                </li>
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ui-view>
@@ -66,3 +68,8 @@
         <li class="user-menu-item"><a href="#">管理员</a></li>
     </ul>
 </script>
+
+
+
+<div class="loading" ng-show="loading"></div>
+<div uib-alert ng-repeat="alert in alerts" class="alert-warning alert-top" style="z-index: 100000" dismiss-on-timeout="5000" close="closeAlert($index)">{{alert.msg}}</div>
