@@ -25,6 +25,14 @@ define(['app'],
                                 dummy: $couchPotatoProvider.resolveDependencies(['app/consumer/consumerListCtrl'])
                             }
                         })
+                        .state('frame.consumerOptometryList', {//验光单路由
+                            url: '/optometryList',
+                            templateUrl: 'app/consumer/optometryList.html',
+                            controller: 'optometryListCtrl',
+                            resolve: {
+                                dummy: $couchPotatoProvider.resolveDependencies(['app/consumer/optometryListCtrl'])
+                            }
+                        })
                 }
             ]
         );

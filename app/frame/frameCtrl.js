@@ -23,7 +23,8 @@ define(['app'],
                 {
                     'currentState':'frame.consumer',
                     'childStateList':[
-                        {'key':'客户列表','value':'frame.consumerList'}
+                        {'key':'客户列表','value':'frame.consumerList'},
+                        {'key':'验光单列表','value':'frame.consumerOptometryList'}
                     ]
                 },
                 {

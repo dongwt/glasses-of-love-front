@@ -1,0 +1,150 @@
+<div class="row" style="margin-bottom:15px;">
+    <div class="col-xs-8">
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="consumerName">姓名：</label>
+                <input type="text" class="form-control" id="consumerName" placeholder="姓名"
+                       ng-model="optometry.consumerName">
+            </div>
+            <div class="form-group">
+                <label for="consumerPhone">手机号：</label>
+                <input type="text" class="form-control" id="consumerPhone" placeholder="手机号" ng-model="optometry.consumerPhone">
+            </div>
+            <button class="btn btn-primary" ng-click="query()">查询</button>
+        </form>
+    </div>
+    <div class="col-xs-4">
+        <button class="btn btn-primary pull-right" ng-click="add()">创建</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-bordered table-hover table-striped">
+            <thead>
+            <tr>
+                <th>列号</th>
+                <th>姓名</th>
+                <th>手机号</th>
+                <th>左眼度数</th>
+                <th>右眼度数</th>
+                <th>更新时间</th>
+                <th>创建时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in data.items">
+                <th>{{$index+1}}</th>
+                <th>{{item.consumerName}}</th>
+                <td>{{item.consumerPhone}}</td>
+                <td>{{item.leftEyeDegree}}</td>
+                <td>{{item.rightEyeDegree}}</td>
+                <td>{{item.updatedAt | date:'yyyy-MM-dd hh:mm:ss'}}</td>
+                <td>{{item.createdAt | date:'yyyy-MM-dd hh:mm:ss'}}</td>
+                <td>
+                    <button type="button" class="btn btn-primary btn-sm" ng-click="update(item)">修改</button>
+                    <button type="button" class="btn btn-danger btn-sm" ng-click="delete(item)">删除</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-xs-12">
+        <ul uib-pagination total-items="data.page.total" ng-model="data.page.pageIndex" max-size="6"
+            items-per-page="data.page.pageSize"
+            first-text="首页" previous-text="上一页" next-text="下一页" last-text="尾页"  ng-change="pageChanged()"
+            class="pagination-sm pull-right" boundary-links="true" boundary-link-numbers="true" rotate="true"></ul>
+    </div>
+</div>
+
+<script type="text/ng-template" id="addOptometryModal.html">
+    <div class="modal-header" ng-click="hideConsumerOption()">
+        <h3 class="modal-title" id="modal-title">新增验光单</h3>
+    </div>
+    <div class="modal-body" id="modal-body" ng-click="hideConsumerOption()">
+        <form class="form-horizontal">
+            <div class="form-group" ng-class="{'has-error':isConsumerIdError}">
+                <label class="col-sm-2 control-label">客户<span class="text-danger">*</span></label>
+                <div class="col-sm-10">
+                    <input class="form-control" placeholder="姓名" ng-model="optometry.consumerName" ng-change="changeKeyValue()">
+                    <div class="list-group" style="position: absolute;z-index: 10;width: 96%;"
+                         ng-hide="isHideConsumerOption">
+                        <button type="button" class="list-group-item" ng-repeat="data in consumerList" ng-click="selectConsumer(data)">
+                            {{data.name+"-"+data.phone}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error':isLeftEyeDegreeError}">
+                <label  class="col-sm-2 control-label">左眼度数<span class="text-danger">*</span></label>
+                <div class="col-sm-10">
+                    <input class="form-control"  placeholder="左眼度数" ng-model="optometry.leftEyeDegree">
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error':isRightEyeDegreeError}">
+                <label  class="col-sm-2 control-label">右眼度数<span class="text-danger">*</span></label>
+                <div class="col-sm-10">
+                    <input class="form-control"  placeholder="右眼度数" ng-model="optometry.rightEyeDegree">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer" ng-click="hideConsumerOption()">
+        <button class="btn btn-primary" type="button" ng-click="ok()">创建</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">取消</button>
+    </div>
+</script>
+
+
+<script type="text/ng-template" id="updateOptometryModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title">修改验光单</h3>
+    </div>
+    <div class="modal-body"  ng-click="hideConsumerOption()">
+        <form class="form-horizontal">
+            <div class="form-group" ng-class="{'has-error':isConsumerIdError}">
+                <label class="col-sm-2 control-label">客户<span class="text-danger">*</span></label>
+                <div class="col-sm-10">
+                    <input class="form-control" placeholder="姓名" ng-model="optometry.consumerName" ng-change="changeKeyValue()">
+                    <div class="list-group" style="position: absolute;z-index: 10;width: 96%;"
+                         ng-hide="isHideConsumerOption">
+                        <button type="button" class="list-group-item" ng-repeat="data in consumerList" ng-click="selectConsumer(data)">
+                            {{data.name+"-"+data.phone}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error':isLeftEyeDegreeError}">
+                <label  class="col-sm-2 control-label">左眼度数<span class="text-danger">*</span></label>
+                <div class="col-sm-10">
+                    <input class="form-control"  placeholder="左眼度数" ng-model="optometry.leftEyeDegree">
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error':isRightEyeDegreeError}">
+                <label  class="col-sm-2 control-label">右眼度数<span class="text-danger">*</span></label>
+                <div class="col-sm-10">
+                    <input class="form-control"  placeholder="右眼度数" ng-model="optometry.rightEyeDegree">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer" ng-click="hideConsumerOption()">
+        <button class="btn btn-primary" type="button" ng-click="ok()">修改</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">取消</button>
+    </div>
+</script>
+
+
+<script type="text/ng-template" id="deleteOptometryModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title">提醒：</h3>
+    </div>
+    <div class="modal-body">
+        确认删除该条记录吗？
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-danger" type="button" ng-click="ok()">确定</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">取消</button>
+    </div>
+</script>
