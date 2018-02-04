@@ -16,14 +16,30 @@ define(['app'], function (app) {
     /**
      * 路由状态的控制
      */
-    app.run(['$rootScope',function ($rootScope) {
+    app.run(['$transitions','$http','$state','$log',function ($transitions,$http,$state,$log) {
+        
+        function checkLoginStatus() {
+            $http.post(
+                "http://localhost:8080/user/checkLoginStatus"
+            ).then(
+                function (response) {
+                    if (response.data.status == 0) {
+                        $state.go("login");
+                    }
+                    $log.info(response)
+                },
+                function (data) {
+                    $state.go("login");
+                    $log.info(data)
+                }
+            )
+        }
 
-        //控制路由跳转
-        $rootScope.$on('$stateChangeStart',
-            function (event, toState, toParams, fromState, fromParams) {
-
-
-            })
+        $transitions.onStart( {}, function(trans) {
+            if(trans.router.globals.$current.name != 'login'){
+                checkLoginStatus();
+            }
+        });
     }
     ]);
 

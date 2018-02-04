@@ -7,7 +7,7 @@ define(['app'],
     function (app) {
         app.registerController('frameCtrl', ["$scope","$rootScope","$state","$log",function ($scope,$rootScope,$state,$log) {
 
-            function getFunctionList(stateName) {
+            $rootScope.getFunctionList = function(stateName) {
                 var functionList = [];
                 angular.forEach($scope.allFunctionList,function (item) {
                     if(item.currentState.substring(0,9) == stateName.substring(0,9)){
@@ -15,7 +15,7 @@ define(['app'],
                     }
                 })
 
-                return functionList;
+                $rootScope.functionList =  functionList;
             }
 
 
@@ -46,7 +46,7 @@ define(['app'],
                 }
             ];
 
-            $rootScope.functionList = getFunctionList($state.current.name);
+            $rootScope.getFunctionList($state.current.name);
 
             $rootScope.loading = false;
 
